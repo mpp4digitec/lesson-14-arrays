@@ -13,8 +13,8 @@
 # and subject of the terms of the [[file:LICENCE]] file.
 # ----------
 
-#+TITLE: Binary Code
-#+SUBTITLE: Representing information using only 0 and 1
+#+TITLE: Arrays
+#+SUBTITLE: Lists of objects
 #+AUTHOR: Digital Technologies
 #+DATE: 2023-24
 
@@ -32,7 +32,7 @@
 
 #+REVEAL_HLEVEL: 1
 # +REVEAL_THEME: league
-#+REVEAL_THEME: simple
+#+REVEAL_THEME: white
 # +REVEAL_TRANS: none
 #+REVEAL_TRANS: fade
 #+REVEAL_SPEED: fast
@@ -42,6 +42,8 @@
 # +REVEAL_TITLE_SLIDE_BACKGROUND: ./media/title-slide-background.png
 # Use the jump plugin and the SVG layers display with reveal-svg-fragment
 #+REVEAL_EXTRA_JS:      { src: './reveal.js-jump-plugin/jump/jump.js', async: true }, { src: './reveal.js-reveal-svg-fragment/reveal-svg-fragment.js', condition: function() { return !!document.querySelector( '[data-svg-fragment]' ); } }
+#+REVEAL_PLUGINS: (highlight)
+#+REVEAL_HIGHLIGHT_CSS: ./reveal/plugin/highlight/zenburn.css
 
 # org-reveal options :
 # we don't really need a local copy of d3, but in case, here's how to
@@ -65,511 +67,214 @@
 
 # - Content here:
 
-* Introduction
+* Array
 
-What types of information do computers store?
+#+begin_quote
+An *array* is a list of objects.
+#+end_quote
 
-** Numbers
+#+attr_html: :border 2 :rules all :frame border
+| Index   |       0 |        1 |       2 |         3 |
+| Element | ~apple~ | ~orange~ | ~lemon~ | ~apricot~ |
 
 #+begin_export html
-<iframe src="http://www.usalivestats.com" style="width: 100%; height: 500px;border: none;"></iframe>
+<p></p>
 #+end_export
 
-** Text
+- *Element*: every object on the list.
+- *Index*: the position of an element on the list (starting at zero).
+- *Length*: number of elements.
+
+* Create an empty array
+
+- As for any other class of objects:
+
+  #+begin_src js
+let fruits = new Array();
+let sequence = new Array();
+  #+end_src
+
+- Shortcut:
+
+  #+begin_src js
+let fruits = [];
+let sequence = [];
+  #+end_src
+
+#+ATTR_HTML: :target _blank
+[[http://localhost:9000/examples/blank.html]]
+
+* Add elements
+
+- On creation:
+
+  #+begin_src js
+let fruits = new Array("apple", "orange", "lemon", "apricot");
+let sequence = [1, 1, 2, 3, 5, 8, 13];
+  #+end_src
+
+- After creating it:
+
+  #+begin_src js
+let semaphore = [];
+let redLight = new Circle(100, "red");
+let yellowLight = new Circle(100, "yellow");
+let greenLight = new Circle(100, "green");
+semaphore.push(redLight);
+semaphore.push(yellowLight);
+semaphore.push(greenLight);
+  #+end_src
+
+* Access the elements
+
+#+begin_quote
+Subscript operator: ~[]~
+~arrayName[index]~
+#+end_quote
+
+#+begin_src js
+let fruits = new Array("apple", "orange", "lemon", "apricot");
+let sequence = [1, 1, 2, 3, 5, 8, 13];
+console.log(fruits[0]);
+console.log(sequence[3]);
+#+end_src
+
+#+RESULTS:
+: apple
+: orange
+: 3
+
+** Arrays are zero-indexed
+
+#+begin_src js
+let primes = [2, 3, 5, 7, 11, 13, 17];
+#+end_src
+
+Access the first element
+
+#+ATTR_REVEAL: :frag appear
+#+begin_src js
+primes[0];
+#+end_src
+
+** Arrays are zero-indexed
+
+#+begin_src js
+let primes = [2, 3, 5, 7, 11, 13, 17];
+#+end_src
+
+Access element whose value is 7:
+
+#+ATTR_REVEAL: :frag appear
+#+begin_src js
+primes[3];
+#+end_src
+
+** Arrays are zero-indexed
+
+#+begin_src js
+let primes = [2, 3, 5, 7, 11, 13, 17];
+#+end_src
+
+Access the last element
+
+#+ATTR_REVEAL: :frag appear
+#+begin_src js
+primes[6];
+#+end_src
+
+* Array length
+
+#+begin_quote
+Array's property ~length~ gives its length.
+
+~arrayName.length~
+#+end_quote
+
+#+begin_src js
+let primes = [2, 3, 5, 7, 11, 13, 17];
+console.log(primes.length);
+#+end_src
+
+** Arrays are zero-indexed
+
+#+begin_src js
+let primes = [2, 3, 5, 7, 11, 13, 17];
+#+end_src
+
+Which is the length of the array ~primes~?
+
+#+ATTR_REVEAL: :frag appear
+#+begin_src js
+primes.length == 7
+#+end_src
+
+Which is the last element's index?
+
+#+ATTR_REVEAL: :frag appear
+#+begin_src js
+6
+#+end_src
+
+
+** Arrays are zero-indexed
+
+#+begin_src js
+let primes = [2, 3, 5, 7, 11, 13, 17];
+#+end_src
+
+Access the last element
+
+#+ATTR_REVEAL: :frag appear
+#+begin_src js
+primes[primes.length - 1];
+#+end_src
+
+* Get the position of an element
+
+#+begin_quote
+~arrayName.indexOf(value)~ returns the index of the *first* element whose value is ~value~.
+#+end_quote
+
+#+begin_src js
+let fruits = new Array("apple", "orange", "lemon", "apricot");
+console.log(fruits.indexOf("orange"));
+#+end_src
+
+
+* Iterate an array
+
+#+begin_quote
+To iterate an array: to perform some action on every element of the array.
+#+end_quote
+
+** Iterate an array
+
+#+begin_src js
+let fruits = new Array("apple", "orange", "lemon", "apricot");
+let i = 0;
+while (i < fruits.length) {
+  console.log(fruits[i]);
+  i = i + 1;
+}
+#+end_src
 
 #+begin_export html
-<iframe src="https://en.wikipedia.org/wiki/Computer_architecture" style="width: 100%; height: 500px; border: none;"></iframe>
-#+end_export
-
-** Images
-
-#+begin_export html
-<img src="./media/hd.jpg" style="height: 500px">
-#+end_export
-
-** Video
-
-#+begin_export html
-<iframe width="100%" height="500px" src="https://www.youtube.com/embed/6dkiqJ_IZGw?si=igs_Y5mGm4UrIgsX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-#+end_export
-
-** Sound
-
-#+begin_export html
-<audio controls loop>
-<source src="./media/sound.mp3" type="audio/mpeg">
-</audio>
-#+end_export
-
-** Zeroes and ones
-
-Everything is stored as a sequence of /zeroes and ones/.
-
-#+begin_export html
-<img src="./media/zeroesandones.jpg" style="height: 500px">
-#+end_export
-
-* Binary code
-
-System for representing information using only two symbols:
-
-#+begin_export html
-<p style="font-size: 2em;font-family: Courier; color: rgb(200, 127, 90)">0,1</p>
-#+end_export
-
-#+begin_notes
-Be aware that 0 and 1 are only names for those two symbols we'll use to represent information. Those names have nothing to do with their real physical representation inside the computer's memory.
-#+end_notes
-
-* Natural numbers
-
-#+begin_notes
-Natural numbers are the numbers we use for counting: 0, 1, 2, 3,...
-
-Technically speaking, 0 is not a natural number, but we'll consider it natural here, for simplicity.
-
-The representation of natural numbers will be the basis for the representation of other types of information.
-#+end_notes
-
-** Digits and sequences
-- *Sequence*: =1234=
-- *Digit*: each symbol in a sequence.
-
-#+begin_notes :teachersonly:
-We have only 10 different symbols: 0, 1, 2,... 9.
-
-Count passed 9... we ran out of symbols... we add a digit.
-
-Count passed 99... we ran out of symbols... we add a digit.
-
-We use sequences of symbols: this way, we can represent infinite things with a limited amount of symbols.
-#+end_notes
-
-#+begin_notes
-Natural numbers are the numbers we use to count: 0, 1, 2, 3, 4,...
-
-We only have ten different symbol for representing these numbers: 0, 1, 2,..., 9.
-
-To represent bigger quantities, we use sequences of these symbols, like 1234. Each symbol in a sequence is called a digit.
-
-Combining the symbols into sequences allows us to represent infinite numbers, as long as the length of the sequence is unlimited. For example, with 3-digit sequences we can write 10x10x10=1,000 different numbers, which are: 0, 1, 2,... 999 (we don't usually write the leading zeroes: 000, 001, 002,...).
-#+end_notes
-
-** Counting with only two symbols
-
-#+begin_export html
-<div style="height: 500px; width: 100%; border-width: 2px"></div>
-#+end_export
-
-#+begin_notes
-  0
-
-  1
-
- 10
-
- 11
-
-100
-
-101
-
-110
-
-111
-#+end_notes
-
-#+begin_notes
-The system we use with two symbols is the same: build sequences. Even with only two symbols, there are 4 different 2-digit sequences, 8 different 3 digit-sequences, etc.
-#+end_notes
-
-** Position values: decimal numbers
-
-#+begin_export html
-<h2 style="font-size: 5em; font-family: Courier">2 2 2 2</h2>
-#+end_export
-
-#+begin_export html
-<div style="height: 500px; width: 100%; border-width: 2px"></div>
-#+end_export
-
-#+begin_notes
-The value of a digit depends on its position in the sequence.
-
-- the value of the right-most 2 is 2 (2 times 1);
-- the value of the next 2 is 20 (2 times 10);
-- the value of the third 2 is 200 (2 times 10 times 10);
-- the value of the left-most 2 is 2000 (2 times 10 to the third).
-
-Every time we shift one position to the left, we multiply the value by ten. This is due to the fact that when we add a digit, the number of different combinations is multiplied by 10, because there are 10 different symbols.
-#+end_notes
-
-** Position values: binary numbers
-
-#+begin_export html
-<h2 style="font-size: 5em; font-family:Courier">1 1 1 1</h2>
-#+end_export
-
-#+begin_export html
-<div style="height: 500px; width: 100%; border-width: 2px"></div>
-#+end_export
-
-#+begin_notes
-The system is the same as with decimal numbers. There are two differences:
-- we only have =0= and =1=: the value of a digit is either zero, or the value of its position;
-- every time we shift one position to the left, we multiply the value by two (because, the number of different combinations is increased by a factor of two).
-#+end_notes
-
-** ~Binary~ ➡️ decimal
-
-| / | <   | <> | <> | <> | <> | <> | <> | <> |
-|---+-----+----+----+----+----+----+----+----|
-|   | 128 | 64 | 32 | 16 |  8 |  4 |  2 |  1 |
-|---+-----+----+----+----+----+----+----+----|
-|   |   1 |  0 |  1 |  1 |  0 |  1 |  0 |  1 |
-|---+-----+----+----+----+----+----+----+----|
-|   |     |    |    |    |    |    |    |    |
-|---+-----+----+----+----+----+----+----+----|
-
-#+begin_notes
-128 + 32 + 16 + 4 + 1 = 181
-
-We don't have to take into account the zeroes, because their value is zero!
-#+end_notes
-
-** 📝 Exercise
-
-#+begin_export html
-<div style="font-size: 2em"><code>1 1 0 1 1 1 0 0</code></span>
-#+end_export
-
-#+begin_notes
-128 + 64 + 16 + 8 + 4 = 220
-#+end_notes
-
-** 📝 Exercise
-
-#+begin_export html
-<div style="font-size: 2em"><code>0 0 0 1 0 1 1 1</code></span>
-#+end_export
-
-#+begin_notes
-16 + 4 + 2 + 1 = 23
-#+end_notes
-
-** 📝 Exercise
-
-Which is the biggest 8-digit binary number?
-
-#+begin_notes
-The biggest 8-bit binary number is:
-
-1111 1111
-
-Whose value is:
-
-128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
-
-It's the immediately preceding number to:
-
-0001 0000 0000
-
-Whose value is: 256 (2^8)
-#+end_notes
-
-** Decimal ➡️ ~binary~ (subtract method)
-
-Code in binary the number: 221
-
-#+begin_notes
-1. Find the biggest power of two smaller than the number.
-2. Add a =1= digit to the position corresponding to that power of two.
-3. Subtract that power of two from the number.
-4. Repeat the process with the reminder of the subtraction, until the reminder is =0=.
-
-221 - 128 = 93
-
-93 - 64 = 29
-
-29 - 16 = 13
-
-13 - 8 = 5
-
-5 - 4 = 1
-
-1 - 1 = 0
-
-221 = 128 + 64 + 16 + 8 + 4 + 1
-
-221 = 1 1 0 1 1 1 0 1
-#+end_notes
-
-** 📝 Exercise
-
-Code in binary the number: 118
-
-#+begin_notes
-118 - 64 = 54
-
-54 - 32 = 22
-
-22 - 16 = 6
-
-6 - 4 = 2
-
-2 - 2 = 0
-
-118 = 64 + 32 + 16 + 4 + 2
-
-118 = 0 1 1 1 0 1 1 0
-#+end_notes
-
-** Decimal ➡️ ~binary~ (division method)
-
-Code in binary the number 221 using the division method.
-
-#+begin_notes
-1. Divide the number by 2.
-2. Write down the reminder.
-3. Replace the number by the quotient, and repeat the process until the quotient is =0=.
-4. 📝 Write all the reminders in reverse order.
-
-221 / 2 = 110 r: 1
-
-110 / 2 = 55 r: 0
-
-55 / 2 = 27 r: 1
-
-27 / 2 = 13 r: 1
-
-13 / 2 = 6 r: 1
-
-6 / 2 = 3 r: 0
-
-3 / 2 = 1 r: 1
-
-1 / 2 = 0 r: 1
-
-221 = 1 1 0 1 1 1 0 1
-#+end_notes
-
-** 📝 Exercise
-
-Code in binary the number: 118
-
-
-#+begin_notes
-118 / 2 = 59 r: 0
-
-59 / 2 = 29 r: 1
-
-29 / 2 = 14 r: 1
-
-14 / 2 = 7 r: 0
-
-7 / 2 = 3 r: 1
-
-3 / 2 = 1 r: 1
-
-1/ 2 = 0 r: 1
-
-118 = 1 1 1 0 1 1 0
-#+end_notes
-
-* Information units
-
-- 1 bit = 1 binary digit
-- 1 byte = 8 bits
-- 1 Kilobyte (1 Kb) = $2^{10}$ bytes = 1,024 b \approx 1,000 b
-- 1 Megabyte (1 Mb) = $2^{10}$ Kb \approx 1 million bytes
-- 1 Gigabyte (1 Gb) = $2^{10}$ Mb \approx 1 billion bytes
-- 1 Terabyte (1 Tb) = $2^{10}$ Gb \approx 1 trillion bytes
-
-** Storage size
-
-- /El Quijote/: 2,034,611 characters (\approx 2 Mb).
-- Picture of 1MP in JPG: approx. 0.5Mb.
-- Video HD 60FPS: 200Mb/minute.
-
-* Texts
-
-** Characters
-
-- *Character*: symbols that make up the written text.
-- *Text*: a sequence of characters.
-
-[[./media/string.png]]
-
-** Text binary code
-
-a = ~0~; b = ~1~; c = ~10~; d = ~11~; e = ~100~; f = ~101~; g = ~110~
-
-Code: ~110100110~
-
-Meaning?
-
-[[./media/text-ambiguity.png]]
-
-Where does each character start and end?
-
-** Fixed-length code
-
-a = ~000~; b = ~001~; c = ~010~; d = ~011~;
-
-e = ~100~; f = ~101~; g = ~110~
-
-Code: ~110100110~
-
-Meaning?
-
-[[./media/fixed-length-code.png]]
-
-#+begin_notes
-Problem: waste of bits.
-
-
-Optimal solution. /Huffman codes/ (don't repeat the start).
-a = 00; b = 01; c = 100; d = 101; e = 1100; f = 1101; g = 1110
-
-1000011101100
-#+end_notes
-
-** ASCII
-
-#+begin_export html
-<img src="./media/ascii-table.png" width="100%" height="500px">
-#+end_export
-
-#+begin_notes
-ASCII stands for American Standard Code for Information Interchange
-
-The table shown is quite old. It's still in use in some applications, but it has mostly been replaced by other coding systems, especially by Unicode.
-
-Most of the first 32 codes are not really characters, but codes used by the computer to communicate with the screen while sending the actual characters to be printed on it.
-
-The length is fixed: 8 bits.
-#+end_notes
-
-** Example
-
-~Hello, world!~
-
-~72 101 108 108 111 44 32 119 111 114 108 100 33~
-
-~01001000 01100101 01101100 01101100 01101111 00101100 00100000 01110111 01101111 01110010 01101100 01100100 00100001~
-
-#+begin_notes
-Remember that the length is fixed: if the number is smaller than 128, you should put some leading zeroes.
-#+end_notes
-
-** 📝 Exercise
-
-Code in 8-bit ASCII: ~IPv4~
-
-#+begin_export html
-<div style="height: 500px; width: 100%; border-width: 2px"></div>
-#+end_export
-
-#+begin_notes
-073 080 118 052
-
-01001001 01010000 01110110 00110100
-#+end_notes
-
-
-* Images
-
-** Bitmap images (raster graphics)
-
-  #+begin_export html
-  <div style="display: grid; grid-template-columns: 50% 50%">
-  <div><img src="./media/tigerlr.jpg"></div>
-  <div><img src="./media/tigerdetail.png"></div>
-  </div>
-  #+end_export
-
-#+begin_notes :teachersonly:
-Image is made up of small squares of a specific color, called pixels.
-
-When I zoom in, I see the pixels.
-
-Good for photographs (real images).
-#+end_notes
-
-** Vector graphics
-
-  #+begin_export html
-  <div style="display: grid; grid-template-columns: 50% 50%">
-  <div><img src="./media/vector.svg"></div>
-  <div><img src="./media/svgdetail.png"></div>
-  </div>
-  #+end_export
-
-#+begin_notes :teachersonly:
-Images are made up of geometric shapes.
-
-I can zoom in as much as I want. Will never lose detail.
-
-God for drawings and text.
-#+end_notes
-
-** Bitmap images
-
-Pixel = Picture element
-
-Pixel size = width (px) x height (px)
-
-
-** Color
-
-RGB = Red Green Blue
-
-1 byte per color = 3 bytes per pixel
-
-Example: ~11111111 11111111 00000000~ = yellow (red + green)
-
-** Color depth
-
-*Color depth* = number of bits per pixel
-
-RGB = 24 bits/px
-
-📝 How many different colors can be represented?
-
-📝 How much memory occupies a 800x600 px image?
-
-
-#+begin_notes
-How many different colors can be represented this way?
-
-256 x 256 x 256 = 2^24 = 16 x 2^20 = 16,000,000 (aprox)
-
-📝 How much memory occupies a 800x600 px image?
-
-800 x 600 = 480,000 px
-
-480,000 x 3 = 1,440,000 bytes = 1.34 Mb
-
-But there's compression.
-#+end_notes
-
-
-** Color Picker
-
-#+begin_export html
-<input type="color">
-<div style="height: 500px; width: 100%; border-width: 2px"></div>
+<iframe src="./examples/iterate.html" width="100%" height="400px"></iframe>
 #+end_export
 
 
-** Transparency
+* Other operations
 
-*Alpha Channel*: 1 byte for opacity.
+- /array.splice(start, count)/: delete elements.
+- /array.concat(item1, item2,...)/: append elements.
+- /array.concat(another)/: append /another/ array.
+- /array.includes(value)/: is /value/ in /array/?
 
-*RGBA* = RGB + Alpha Channel
-
-4 bytes per pixel
-
-*JPG* ❌ no alpha channel
-
-*PNG* ❔ optional alpha channel
+#+begin_src js
+let fruits = new Array("apple", "orange", "lemon", "apricot");
+fruits.splice(1, 2); // fruits = ["apple", "apricot"]
+fruits.concat("plum", "pear", "peach");
+// fruits = ["apple", "apricot", "plum", "pear", "peach"]
+console.log(fruits.includes("pineapple")); // false
+#+end_src
