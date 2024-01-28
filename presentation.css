@@ -1,0 +1,16 @@
+.reveal section img {
+    border: none;
+    box-shadow: none;
+}
+.reveal pre code {
+    max-height: 600px;
+}
+code {
+    background-color: lightgrey;
+}
+
+/* src blocks captions */
+label.org-src-name {
+    font-size: 80%;
+    font-style: italic;
+}
