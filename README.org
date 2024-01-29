@@ -185,7 +185,7 @@ primes[6];
 * Array length
 
 #+begin_quote
-Array's property ~length~ gives its length.
+Array's property ~length~ gives its number of elements.
 
 ~arrayName.length~
 #+end_quote
